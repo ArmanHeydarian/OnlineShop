@@ -55,7 +55,7 @@ public class ProductService {
             else ResponseEntity.badRequest().body("Category Id was not found");
 
         poductRepository.save(product);
-        return ResponseEntity.ok("Product Saved Succussfully");
+        return ResponseEntity.ok("Product Saved Successfully");
     }
     //------------------------------------------------------------------------------------
     public ResponseEntity<String> addProductComment(ProductCommentDto productCommentDto, String userName) throws Exception {
@@ -82,7 +82,7 @@ public class ProductService {
         // Add requested productComment to poductCommentRepository
         poductCommentRepository.save(productComment);
 
-        return ResponseEntity.ok("Comment Saved Succussfully");
+        return ResponseEntity.ok("Comment Saved Successfully");
     }
     //------------------------------------------------------------------------------------
     public ResponseEntity<String> addProductRate(ProductRateDto productRateDto, String userName) throws Exception {
@@ -109,7 +109,7 @@ public class ProductService {
         // Add requested productRate to poductRateRepository
         poductRateRepository.save(productRate);
 
-        return ResponseEntity.ok("Rate Saved Succussfully");
+        return ResponseEntity.ok("Rate Saved Successfully");
     }
     //------------------------------------------------------------------------------------
     public List<Product> getAllProducts() throws Exception {
@@ -142,4 +142,12 @@ public class ProductService {
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
         return entityManager.createQuery(cq).getResultList();
     }
+    //------------------------------------------------------------------------------------
+
+    public ResponseEntity<String> deleteProduct(int productId) throws Exception {
+        poductRepository.deleteById(productId);
+        return ResponseEntity.ok("Product Has Been Deleted Successfully");
+
+    }
+
 }

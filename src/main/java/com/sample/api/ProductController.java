@@ -117,4 +117,15 @@ public class ProductController {
 
         return ResponseEntity.badRequest().body("User is not authenticated");
     }
+
+    @DeleteMapping(value = "/deleteproduct")
+    public ResponseEntity<?> deleteProduct(@RequestParam int productId  ) {
+        try {
+            return poductService.deleteProduct(productId);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong :" + e.getMessage());
+
+        }
+    }
 }

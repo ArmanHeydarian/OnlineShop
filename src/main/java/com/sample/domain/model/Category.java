@@ -27,7 +27,7 @@ public class Category {
     private Date createDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL)
     private List<Product> products;
 
 
