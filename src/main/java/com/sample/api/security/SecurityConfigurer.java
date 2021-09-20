@@ -32,14 +32,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/user/*",
-                        "/v2/api-docs",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**").permitAll().anyRequest().authenticated()
+                .antMatchers("/api/user/auth" ,"/api/user/signup",
+                        "/swagger-ui.html",  "/v2/api-docs/**", "/webjars/springfox-swagger-ui/**", //swagger path is accessible
+                        "/swagger-resources/**" ).permitAll().antMatchers("/api/product/add" , "/api/category/add" , "/api/user/blockuser",  "/api/user/unblockuser").hasAuthority("ADMIN").anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -54,4 +51,5 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }

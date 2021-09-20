@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -26,6 +27,8 @@ public class UserModel {
     private Date createDate;
     private boolean isBlocked;
 
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "user",cascade = CascadeType.ALL)
+    private List<ProductComment> productComments ;
     //------------------------------------------------------------------
     public int getId() {
         return id;

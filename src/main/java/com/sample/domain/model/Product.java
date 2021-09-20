@@ -1,12 +1,19 @@
 package com.sample.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Product {
+public class Product  {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -30,9 +37,12 @@ public class Product {
 
     private int profileID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "product")
+    private List<ProductComment> productComments ;
 
     public int getId() {
         return id;
@@ -114,19 +124,5 @@ public class Product {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", avgRate=" + avgRate +
-                ", isBlocked=" + isBlocked +
-                ", totalQuantity=" + totalQuantity +
-                ", cost=" + cost +
-                ", createDate=" + createDate +
-                ", profileID=" + profileID +
-                ", category=" + category +
-                '}';
-    }
+
 }

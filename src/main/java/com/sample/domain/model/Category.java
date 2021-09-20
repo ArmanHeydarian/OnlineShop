@@ -1,11 +1,14 @@
 package com.sample.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
@@ -22,8 +26,9 @@ public class Category {
     @NotNull
     private Date createDate;
 
-    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "category")
-    private List<Product> products ;
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
 
     public int getId() {
