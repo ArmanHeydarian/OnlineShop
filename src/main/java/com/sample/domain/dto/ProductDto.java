@@ -6,7 +6,7 @@ public class ProductDto {
 
     private String title;
     private String description;
-    private long cost;
+    private long price;
     private int categoryId;
 
     public int getCategoryId() {
@@ -35,12 +35,12 @@ public class ProductDto {
         this.description = description;
     }
 
-    public long getCost() {
-        return cost;
+    public long getPrice() {
+        return price;
     }
 
-    public void setCost(long cost) {
-        this.cost = cost;
+    public void setPrice(long price) {
+        this.price = price;
     }
 
 

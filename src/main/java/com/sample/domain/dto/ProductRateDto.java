@@ -1,8 +1,11 @@
 package com.sample.domain.dto;
 
+import javax.validation.constraints.Size;
+
 public class ProductRateDto {
 
     private int rate;
+
     private int productId;
 
     public int getProductId() {

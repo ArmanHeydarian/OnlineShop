@@ -1,7 +1,10 @@
 package com.sample.domain.model;
 
 import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +16,8 @@ public class ProductRate {
     private int id;
 
     @NotNull
+    //@Size(min = 1, max = 5 ,message  = "Rate Number Must be between 1 and 5")
+    @Range(min=1,max=5)
     private int rate;
 
 

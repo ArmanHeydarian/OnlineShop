@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
-public interface PoductRepository extends JpaRepository<Product , Integer> ,ProductRepositoryCustom{
+public interface PoductRepository extends JpaRepository<Product , Integer> {
     List<Product> findByTitle(String title);
 
     @Query("SELECT p  FROM Product p  Left join fetch p.category c")

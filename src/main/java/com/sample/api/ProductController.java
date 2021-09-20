@@ -22,6 +22,7 @@ import java.security.Principal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/api/product")
@@ -47,15 +48,25 @@ public class ProductController {
     @GetMapping(value = "/getall")
     public ResponseEntity<List<Product>> getAllProduct() {
         try {
-            //List list  = poductService.getAllProducts();
-            List list  = poductService.findProductsByTitleAndCost();
-
+            List list  = poductService.getAllProducts();
             return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
-        } catch (Exception e) {
-           /* return ResponseEntity.badRequest().body(new ArrayList<String>() {{
-                add("Something went wrong :" + e.getMessage());
-            }});*/
-            return null;
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    //---------------------------------
+    @GetMapping(value = "/searchproduct")
+    public ResponseEntity<List<Product>>
+    getByProductTitleAndPrice(@RequestParam(required = false) String title, @RequestParam(required = false) Long price, @RequestParam(required = false) Short rate) {
+        try {
+            List list = poductService.findProductsByParams(title, price ,rate);
+            return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+        }
+        catch (Exception e) {
+
+            return ResponseEntity.badRequest().body(null);
         }
     }
     //--------------------------------------------------------------------------------------

@@ -30,7 +30,7 @@ public class Product  {
 
     @NotNull
 
-    private long cost;
+    private long price;
     @NotNull
 
     private Date createDate;
@@ -100,12 +100,12 @@ public class Product  {
         isBlocked = blocked;
     }
 
-    public long getCost() {
-        return cost;
+    public long getPrice() {
+        return price;
     }
 
-    public void setCost(long cost) {
-        this.cost = cost;
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     public Date getCreateDate() {

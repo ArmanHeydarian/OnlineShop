@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Tuple;
+import javax.persistence.criteria.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +42,7 @@ public class ProductService {
     private UserRepository userRepository;
     @Autowired
     private ObjectMapper jacksonObjectMapper;
-
+    //------------------------------------------------------------------------------------
     public ResponseEntity<String> addProduct(ProductDto productDto) throws Exception
     {
         Product product= jacksonObjectMapper.convertValue(productDto, new TypeReference<Product>(){});
@@ -111,8 +115,31 @@ public class ProductService {
     public List<Product> getAllProducts() throws Exception {
         return poductRepository.GetAllRows();
     }
+    //------------------------------------------------------------------------------------
 
-    public List<Product> findProductsByTitleAndCost() throws Exception {
-        return poductRepository.findProductsByTitleAndCost("Tea", 0);
+    @PersistenceContext
+    EntityManager entityManager;
+    public List<Product> findProductsByParams(String title, Long price , Short rate) throws Exception {
+
+        //Search multi properties on Product using CriteriaQuery
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+        Root<Product> root = cq.from(Product.class);
+        Fetch<Product, Category> productsCategory = root.fetch("category", JoinType.LEFT);
+        Join<Product, Category> products = (Join<Product, Category>) productsCategory;
+        // Design Predicts for query
+        List<Predicate> predicates = new ArrayList<>();
+        if (title !=null && !title.equals("")) {
+            predicates.add(cb.like(root.get("title"), "%" + title + "%"));
+        }
+        if (price!= null) {
+            predicates.add(cb.equal(root.get("price"), price));
+        }
+        if (rate!= null) {
+            predicates.add(cb.equal(root.get("avgRate"), rate));
+        }
+
+        cq.where(predicates.toArray(new Predicate[predicates.size()]));
+        return entityManager.createQuery(cq).getResultList();
     }
 }
