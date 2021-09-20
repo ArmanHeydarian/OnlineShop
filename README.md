@@ -1,20 +1,29 @@
 # OnlineShop
-This is a Java trial program which consists an api set for managing an online shop.  -Used Frameworks and Tools: Spring Boot - Spring Web - Spring Data - Spring Security, Hibernate, JWT  -Database : mySql -User Interface : Swagger -Layers: Api, Service, Domain (Data Layer is implemented by SpringData automatically)
+This is a Java based Product Service which consists an api set for managing an online shop products, categories and users.  
 
-
-##### Description:
+### Description:
 This is a Java project which provides an API set for managing an online shop. 
 
-####Used Frameworks and Tools:
+#### Used Frameworks: 
 Spring Boot - Spring Web - Spring Data - Spring Security, Hibernate, JWT 
 
-####Database :
+#### Used Tools:
+Gradle  
+
+#### Database :
 mySql
 
-####User Interface :
-Swagger-UI
+#### User Interface :
+Swagger-UI (http://WebsitePath/swagger-ui.html). also, a Postman package will be send in an email
 
-####Layers: 
-Api, Service, Domain (Data Layer is implemented by SpringData automatically)
+#### Layers: 
+Api, Service, Domain and Data Access Layer
 
+## Start Project
+ In order to start the project you should install a mySql RDBMS then set Connecttion settings into application.properties file in Resource folder.
+ 
+ 
+ #### Hope you enjoy it. 
+ #### feel free to comment and feed back.
 
+#### Arman Heydarian
